@@ -131,3 +131,10 @@ table.second td {
     top: -1px;
     left: 50%;
 }
+
+input[type=text] {
+    width: 100%;
+    padding: 10px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}

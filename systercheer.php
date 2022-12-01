@@ -6,11 +6,12 @@ if(!@$_SESSION['Username']){
     header('Refresh: 2; URL = index.php');
     exit();
 }
+$sql_nameImg = "SELECT chang_nameimg,change_key FROM tb_changeletters WHERE change_key='".@$_GET['change_key']."'  ORDER BY change_keyrow ASC";
+$result_nameImg = $conn->query($sql_nameImg);
+$nameImg = $result_nameImg->fetch_assoc();
 
-
-$sql_sel = "SELECT change_value FROM tb_changeletters WHERE change_img='img_001'  ORDER BY change_keyrow ASC";
+$sql_sel = "SELECT change_value,chang_nameimg FROM tb_changeletters WHERE change_key='".@$_GET['change_key']."'  ORDER BY change_keyrow ASC";
 $result = $conn->query($sql_sel);
-
 
 
 ?>
@@ -22,7 +23,7 @@ $result = $conn->query($sql_sel);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>เชียรและแปรอักษร</title>
-    <link rel="stylesheet" href="css.css?v=3">
+    <link rel="stylesheet" href="css.css?v=6">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun&display=swap" rel="stylesheet">
@@ -45,10 +46,10 @@ if(isset($_GET['Row'])){
 ?>
     <div class="d-flex justify-content-between">
         <div>
-            ผู้ใช้งาน <?=$_SESSION['Username'];?>
+        <a href="pagework.php">กลับหน้าแรก</a>
         </div>
         <div>
-            <a href="php/PhpOut.php">ออกจากระบบ</a>
+        ผู้ใช้งาน <?=$_SESSION['Username'];?> <a href="php/PhpOut.php">ออกจากระบบ</a>
         </div>
     </div>
 
@@ -56,6 +57,11 @@ if(isset($_GET['Row'])){
 
     <hr>
     <div class="width-10 d-flex align-items-center">
+        <div>
+            <label for="">ชื่อรูปภาพ</label>
+            <input type="text" value="<?=@$nameImg['chang_nameimg']?>" name="chang_nameimg" id="chang_nameimg" placeholder="กรุณากรอกชื่อภาพก่อนบันทึก...">
+            <input type="text" value="<?=@$nameImg['change_key']?>" name="change_key" id="change_key" placeholder="กรุณากรอกชื่อภาพก่อนบันทึก..." style="display:none">
+        </div>
         <div class="range-wrap">
             <label for="">คอลัม</label>
             <input type="range" class="range" name="range_column" id="range_column" value="<?=$Col?>" min="0" max="20">
@@ -67,6 +73,10 @@ if(isset($_GET['Row'])){
             <output class="bubble"></output>
         </div>
         <div class="">
+            <div>
+            <label for="">ใส่รูปต้นแบบ</label>
+            </div>
+            
             <input type="file" name="imgInp" id="imgInp">
         </div>
         <button id=clear class="button">Clear</button>
@@ -103,10 +113,6 @@ if(isset($_GET['Row'])){
 
     </div>
 
-
-
-
-
     <?php
     $ch = array();
     for ($i=65; $i <=83; $i++) { 
@@ -119,17 +125,9 @@ if(isset($_GET['Row'])){
                     $ex = explode('|',$row['change_value']);
                     $change_value = $row['change_value']; 
                     $val[$ii][$ex[0]] = $change_value;
-                // foreach ($ex as $key => $value) {
-                //     if($key != 0){
-                //         echo $value;
-                //     }            
-                // }
             ?>
     <?php $ii++; endwhile; ?>
     <?php //echo '<pre>';print_r($val); ?>
-
-
-
 
     <form id="form_cheer" method="post">
         <table class="first">
@@ -174,6 +172,6 @@ if(isset($_GET['Row'])){
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="cheer.js?v=8"></script>
+<script src="cheer.js?v=12"></script>
 
 </html>

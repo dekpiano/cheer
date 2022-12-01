@@ -80,37 +80,68 @@ $(document).ready(function() {
         }
     });
 
+    function makeid(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
+
 
     $('#save').click(function() {
+        let random = makeid(6);
+        let Tcolumn = $('#range_column').val();
+        let Trow = $('#range_row').val();
+        if ($('#chang_nameimg').val() == "") {
+            Swal.fire(
+                'แจ้งเตือน!',
+                'กรุณากรอกชื่อรูปภาพก่อน...',
+                'error'
+            )
+            $('#chang_nameimg').focus();
+        } else {
+            $(".first tr.row_value ").each(function(row, tr) {
+                var total = new Array();
 
-        $(".first tr.row_value ").each(function(row, tr) {
-            var total = new Array();
+                total.push($(this).attr('KeyRow'));
+                $(this).find('td.body').each(function() {
+                    var value = $(this).text();
+                    if (value > 0) {
+                        total.push(value);
+                    } else {
+                        total.push(0);
+                    }
+                });
 
-            total.push($(this).attr('KeyRow'));
-            $(this).find('td.body').each(function() {
-                var value = $(this).text();
-                if (value > 0) {
-                    total.push(value);
-                } else {
-                    total.push(0);
-                }
+                $.post("php/PhpAddCheer.php", {
+                    val: total,
+                    range_row: $('#range_row').val(),
+                    range_column: $('#range_column').val(),
+                    chang_nameimg: $('#chang_nameimg').val(),
+                    randomkey: random
+                }, function(data, status) {
+
+                    Swal.fire({
+                        title: 'แจ้งเตือน?',
+                        text: "บันทึกสำเร็จแล้ว!",
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'OK!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "systercheer.php?Col=" + Tcolumn + "&Row=" + Trow + "&change_key=" + data
+                        }
+                    })
+
+
+                });
             });
 
-            $.post("php/PhpAddCheer.php", {
-                val: total,
-                range_row: $('#range_row').val(),
-                range_column: $('#range_column').val()
-            }, function(data, status) {
-                console.log(data);
-
-                Swal.fire(
-                    'แจ้งเตือน!',
-                    'บันทึกข้อมูลแล้ว',
-                    'success'
-                )
-
-            });
-        });
+        }
 
     });
 
@@ -139,14 +170,32 @@ function setBubble(range, bubble) {
     bubble.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
 }
 
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+    return false;
+};
+
 $(document).on('change', '#range_column', function() {
+    var change_key = getUrlParameter('change_key');
     var range_row = $('#range_row').val();
     var range_column = $('#range_column').val();
-    window.location.href = '../cheer/systercheer.php?Col=' + range_column + '&Row=' + range_row + '';
+    window.location.href = '../cheer/systercheer.php?Col=' + range_column + '&Row=' + range_row + '&change_key=' + change_key;
 });
 
 $(document).on('change', '#range_row', function() {
+    var change_key = getUrlParameter('change_key');
     var range_row = $('#range_row').val();
     var range_column = $('#range_column').val();
-    window.location.href = '../cheer/systercheer.php?Col=' + range_column + '&Row=' + range_row + '';
+    window.location.href = '../cheer/systercheer.php?Col=' + range_column + '&Row=' + range_row + '&change_key=' + change_key;
 });

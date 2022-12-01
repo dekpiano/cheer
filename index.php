@@ -14,10 +14,11 @@
         font-family: 'Sarabun', sans-serif;
         padding: 0;
         margin: 0;
+        
     }
 
     form {
-        border: 3px solid #f1f1f1;
+        border: 5px solid #ffffff;
     }
 
     input[type=text],
@@ -69,6 +70,7 @@
         padding-top: 16px;
     }
 
+
     /* Change styles for span and cancel button on extra small screens */
     @media screen and (max-width: 300px) {
         span.psw {
@@ -85,7 +87,14 @@
         display: flex;
         justify-content: center;
         height: 100vh;
-        align-items: center;
+        align-items: center;        
+    }
+    .bg-white{
+        background-color: #EEE;
+        padding: 15px;
+    }
+    .text-center{
+        text-align: center;
     }
     </style>
 </head>
@@ -93,12 +102,12 @@
 <body>
 
     <div class="page-center">
-        <div style="width: 30%;">
-            <h2>ระบบเชียรและแปรอักษร</h2>
+        <div class="bg-white" style="width: 30%;">
+            <h2 class="text-center">ระบบเชียรและแปรอักษร</h2>
 
             <form action="php/PhpLogin.php" method="post">
                 <div class="imgcontainer">
-                    <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar">
+                    <img src="https://skj.ac.th/assets/img/logo/Logo-nav.png" alt="Avatar" class="avatar">
                 </div>
 
                 <div class="container">
@@ -109,10 +118,9 @@
                     <input type="password" placeholder="Enter Password" name="password" required>
 
                     <button type="submit">Login</button>
-
                 </div>
-
             </form>
+            <div class="text-center">พัฒนาโดย Dekpiano</div> 
         </div>
     </div>
 
