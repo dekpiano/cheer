@@ -92,6 +92,7 @@ $(document).ready(function() {
 
 
     $('#save').click(function() {
+        $('#save').html('<i class="fa fa-spinner fa-spin"></i> กำลังบันทึกข้อมูล');
         let random = makeid(6);
         let Tcolumn = $('#range_column').val();
         let Trow = $('#range_row').val();

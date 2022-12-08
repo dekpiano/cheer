@@ -27,6 +27,7 @@ $result = $conn->query($sql_sel);
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body style="width: fit-content; font-family: 'Sarabun', sans-serif;">
@@ -172,6 +173,6 @@ if(isset($_GET['Row'])){
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="cheer.js?v=12"></script>
+<script src="cheer.js?v=13"></script>
 
 </html>

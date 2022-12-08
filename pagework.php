@@ -37,7 +37,7 @@ $result = $conn->query($sel);
                 while($row = $result->fetch_assoc()):
             ?>
             <div class="column">
-                <a href="systercheer.php?Col=<?=$row['change_tbrow']?>&Row=<?=$row['change_tbcolumn']?>&change_key=<?=$row['change_key']?>">
+                <a href="systercheer.php?Col=<?=$row['change_tbcolumn']?>&Row=<?=$row['change_tbrow']?>&change_key=<?=$row['change_key']?>">
                     <div class="card">
                         <div class="icon-wrapper">
                             <i class="fas fa-hammer"></i>
