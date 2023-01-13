@@ -30,6 +30,20 @@ $result = $conn->query($sql_sel);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
+<style>
+    /* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 60px;
+}
+</style>
+
 <body style="width: fit-content; font-family: 'Sarabun', sans-serif;">
 
     <?php 
@@ -85,7 +99,7 @@ if(isset($_GET['Row'])){
         <button id="save" class="button button2">บันทึก</button>
     </div>
 
-    <div class="d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center justify-content-between sticky">
         <div class="d-flex align-items-center">
             <table class="second">
                 <tr>
@@ -109,9 +123,7 @@ if(isset($_GET['Row'])){
 
                 </tr>
             </table>
-
         </div>
-
     </div>
 
     <?php
